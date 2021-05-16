@@ -1,0 +1,69 @@
+//// -- LEVEL 1
+//// -- Tables and References
+
+// Creating tables
+Table roles as R {
+  id text [pk] 
+  name text
+  color text
+}
+
+Table users as U {
+  id text [pk] 
+  name text
+  color text
+}
+
+Table dates as D {
+  id int [pk]
+  title text 
+  subtitle text
+  subject text
+  description text 
+  due_date text
+  due_time text
+  repeat int
+  create_date text
+  create_time text
+  creator text
+  expired int
+ }
+
+Table subjects as S {
+  name text [pk] 
+  color text
+  exam_ects real
+  prac_ects real
+  exam_description text
+  prac_description text
+  description text
+  studon_url text
+  zoom_url text
+  contact text
+  further_info text
+}
+
+Table repeat {
+  id int [pk]
+  display_name text              
+}
+
+Table dates_ping_roles as DPR {
+  date_id text [pk]
+  role_id text [pk]
+}
+
+Table dates_ping_users as DPU {
+  date_id text [pk]
+  user_id text [pk]
+}
+
+// Creating references
+// You can also define relaionship separately
+// > many-to-one; < one-to-many; - one-to-one
+Ref: D.subject > S.name  
+Ref: D.repeat > repeat.id  
+Ref: DPR.date_id > D.id  
+Ref: DPR.role_id > R.id  
+Ref: DPU.date_id > D.id  
+Ref: DPU.user_id > U.id  
